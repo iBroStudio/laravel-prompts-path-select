@@ -1,8 +1,7 @@
 <?php
 
-use IBroStudio\Skeleton\Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Orchestra\Testbench\TestCase;
 
 pest()
-    ->extends(TestCase::class, RefreshDatabase::class)
+    ->extends(TestCase::class)
     ->in(__DIR__);

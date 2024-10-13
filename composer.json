@@ -1,21 +1,22 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
-    "keywords": ["laravel", ":package_slug"],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "name": "ibrostudio/laravel-prompts-path-select",
+    "description": "Laravel Prompts Path Select",
+    "keywords": ["laravel", "prompts"],
+    "homepage": "https://github.com/ibrostudio/laravel-prompts-path-select",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "iBroStudio",
+            "email": "hello@ibro.studio",
             "role": "Developer"
         }
     ],
     "version": "1.0.0",
     "require": {
         "php": "^8.3",
-        "spatie/laravel-package-tools": "^1.16",
-        "illuminate/contracts": "^11.0"
+        "illuminate/contracts": "^11.0",
+        "laravel/prompts": "^0.3.0",
+        "nunomaduro/laravel-console-menu": "^3.5"
     },
     "require-dev": {
         "laravel/pint": "^1.14",
@@ -31,17 +32,19 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
-        }
+            "IBroStudio\\PathSelectPrompt\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/"
+            "IBroStudio\\PathSelectPrompt\\Tests\\": "tests/"
         }
     },
     "scripts": {
-        "analyse": "vendor/bin/phpstan analyse --memory-limit=1G",
+        "analyse": "vendor/bin/phpstan analyse -l 8 --memory-limit=1G src tests",
         "test": "vendor/bin/pest",
         "format": "vendor/bin/pint"
     },
@@ -50,16 +53,6 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
-            ],
-            "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
-            }
         }
     },
     "minimum-stability": "dev",

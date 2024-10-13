@@ -1,47 +1,80 @@
-# :package_description
+# Laravel Prompts Path Select
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+This package is a small add-on to [Laravel Prompts](https://github.com/laravel/prompts) to provide the ability to select the path to a directory or file.
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag=":package_slug-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag=":package_slug-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag=":package_slug-views"
+composer require ibrostudio/laravel-prompts-path-select
 ```
 
 ## Usage
 
 ```php
-$variable = new VendorName\Skeleton();
-echo $variable->echoPhrase('Hello, VendorName!');
+use function IBroStudio\PathSelectPrompt\pathselect;
+ 
+$directory = pathselect('Select a directory');
 ```
+
+### Usual Prompts options
+
+```php
+$directory = pathselect(
+    label: 'Select a directory',
+    hint: 'Use right and left arrows to navigate in folders',
+    required: true,
+);
+```
+
+### Starting root
+You can choose the folder from which the selection starts:
+
+```php
+$directory = pathselect(
+    label: 'Select a directory',
+    root: base_path(),
+);
+```
+
+### Default selected folder
+You can choose the folder from which the selection starts:
+
+```php
+$directory = pathselect(
+    label: 'Select a directory',
+    root: base_path(),
+    default: base_path('vendor'),
+);
+```
+
+### Target file
+By default, the selector display directories. If you want, you can target a file:
+
+```php
+$file = pathselect(
+    label: 'Select a file',
+    root: base_path(),
+    target: 'file',
+);
+```
+
+### Target extension
+You can also target an extension:
+
+```php
+$file = pathselect(
+    label: 'Select a JSON file',
+    root: base_path(),
+    target: '.json',
+);
+```
+
+### Navigation
+You navigate in directories with right and left arrows.
+
+**You can press the first letter of a folder or file to quickly select it.**
 
 ## Testing
 
