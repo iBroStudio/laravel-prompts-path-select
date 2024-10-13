@@ -1,7 +1,10 @@
 {
     "name": "ibrostudio/laravel-prompts-path-select",
     "description": "Laravel Prompts Path Select",
-    "keywords": ["laravel", "prompts"],
+    "keywords": [
+        "laravel",
+        "prompts"
+    ],
     "homepage": "https://github.com/ibrostudio/laravel-prompts-path-select",
     "license": "MIT",
     "authors": [
@@ -11,7 +14,7 @@
             "role": "Developer"
         }
     ],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "require": {
         "php": "^8.3",
         "illuminate/contracts": "^11.0",
