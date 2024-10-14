@@ -45,7 +45,7 @@ class PathSelectPrompt extends Prompt
     ) {
         static::$themes['default'] = array_merge(
             static::$themes['default'],
-            [self::class => PathSelectPromptRenderer::class,]
+            [self::class => PathSelectPromptRenderer::class]
         );
 
         if ($this->required === false) {

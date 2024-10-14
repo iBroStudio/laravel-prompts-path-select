@@ -76,6 +76,21 @@ You navigate in directories with right and left arrows.
 
 **You can press the first letter of a folder or file to quickly select it.**
 
+
+### Prompts forms
+To insert a `pathselect` into a form, use the `add` method:
+
+```php
+$responses = form()
+    ->text('What is your name?', required: true)
+    ->password('What is your password?', validate: ['password' => 'min:8'])
+    ->add(function () {
+            return pathselect('Select a directory');
+        }, name: 'directory')
+    ->confirm('Do you accept the terms?')
+    ->submit();
+```
+
 ## Testing
 
 ```bash
