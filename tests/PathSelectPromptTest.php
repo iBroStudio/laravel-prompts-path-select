@@ -5,6 +5,7 @@ use Laravel\Prompts\Key;
 use Laravel\Prompts\Prompt;
 
 use function IBroStudio\PathSelectPrompt\pathselect;
+use function Laravel\Prompts\select;
 
 it('can select a path directory', function () {
     Prompt::fake([Key::DOWN, Key::ENTER]);
@@ -73,7 +74,7 @@ it('can navigate to a directory', function () {
 });
 
 it('can navigate to a file', function () {
-    Prompt::fake([Key::DOWN, Key::RIGHT, Key::RIGHT, Key::ENTER]);
+    Prompt::fake([Key::DOWN, Key::RIGHT, Key::RIGHT, Key::RIGHT, Key::DOWN, Key::ENTER]);
     $result = pathselect(
         label: 'Select a file',
         target: 'file',
@@ -81,7 +82,7 @@ it('can navigate to a file', function () {
 
     expect(
         Str::after($result, (string) getcwd())
-    )->toBe('/src/Concerns/PathSelectThemes.php');
+    )->toBe('/src/Themes/Default/PathSelectPromptRenderer.php');
 });
 
 it('allows to search item by its first letter', function () {
@@ -94,7 +95,7 @@ it('allows to search item by its first letter', function () {
 });
 
 it('displays the current directory', function () {
-    Prompt::fake([Key::DOWN, Key::RIGHT, Key::DOWN, Key::RIGHT, Key::RIGHT, Key::ENTER]);
+    Prompt::fake([Key::DOWN, Key::RIGHT, Key::RIGHT, Key::RIGHT, Key::ENTER]);
     pathselect(
         label: 'Select a file',
         target: 'file',
@@ -104,14 +105,14 @@ it('displays the current directory', function () {
 });
 
 it('warns if there is no item to select', function () {
-    Prompt::fake([Key::DOWN, Key::RIGHT, Key::RIGHT, Key::LEFT, Key::ENTER]);
+    Prompt::fake([Key::DOWN, Key::RIGHT, Key::RIGHT, Key::RIGHT, Key::LEFT, Key::ENTER]);
     $result = pathselect('Select a directory');
 
     Prompt::assertOutputContains('empty');
 
     expect(
         Str::after($result, (string) getcwd())
-    )->toBe('/src/Concerns');
+    )->toBe('/src/Themes/Default');
 });
 
 it('warns if selection is not a file', function () {
@@ -142,4 +143,21 @@ it('can display a hint', function () {
     );
 
     Prompt::assertOutputContains('Where you wan to generate the file');
+});
+
+it('can use a pathselect with a other Prompts elements', function () {
+    Prompt::fake([Key::DOWN, Key::ENTER, Key::DOWN, Key::ENTER]);
+    $pathselect = pathselect('Select a directory');
+
+    select(
+        label: 'Use select?',
+        options: [
+            false => 'no',
+            true => 'yes',
+        ]
+    );
+
+    expect(
+        Str::after($pathselect, (string) getcwd())
+    )->toBe('/src');
 });

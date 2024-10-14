@@ -43,9 +43,10 @@ class PathSelectPrompt extends Prompt
         public string $hint = '',
         public bool|string $required = true,
     ) {
-        static::$themes['default'] = [
-            self::class => PathSelectPromptRenderer::class,
-        ];
+        static::$themes['default'] = array_merge(
+            static::$themes['default'],
+            [self::class => PathSelectPromptRenderer::class,]
+        );
 
         if ($this->required === false) {
             throw new InvalidArgumentException('Argument [required] must be true or a string.');
