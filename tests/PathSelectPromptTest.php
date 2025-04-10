@@ -21,7 +21,7 @@ it('can accept a root', function () {
         root: base_path(),
     );
 
-    expect($result)->toBe(base_path('app'));
+    expect($result)->toBe(base_path('bootstrap'));
 });
 
 it('can accept a default value', function () {
